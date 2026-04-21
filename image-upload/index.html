@@ -431,7 +431,7 @@
   let selectedImageBase64 = "";
 
   async function processImage(file) {
-  const minSize = 500 * 1024; // 500KB
+  const minSize = 10 * 1024; // 10KB
   const maxSize = 5 * 1024 * 1024; // 5MB
 
   if (file.size < minSize) {
