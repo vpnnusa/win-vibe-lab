@@ -255,7 +255,7 @@
 </div>
 <script>
   var vcfData = '';
-  var fieldOk = { name: false, phone: false, email: false };
+  var fieldOk = { name: false, phone: false, email: false, image:false };
   var normalizedPhone = '';
 
   /* ── Name ─────────────────────────────────────────── */
@@ -374,8 +374,9 @@
     errEl.textContent = '';
   }
   function updateBtn() {
-    document.getElementById('save-btn').disabled = !(fieldOk.name && fieldOk.phone && fieldOk.email && fieldOk.image);
-  }
+    const isReady = fieldOk.name && fieldOk.phone && fieldOk.email && fieldOk.image;
+    document.getElementById('save-btn').disabled = !isReady;
+}
 
   /* ── VCF build & download ─────────────────────────── */
 /*  function buildVcf(name, phone, email) {
@@ -442,12 +443,14 @@
   
   let selectedImageBase64 = "";
 
-  async function processImage(file) {
-  const minSize = 500 * 1024; // 500KB per your previous requirement
+async function processImage(file) {
+  const minSize = 10 * 1024; // 10KB
   const maxSize = 5 * 1024 * 1024; // 5MB
 
   if (file.size < minSize) {
     alert("Image is too small. Please upload an image larger than 500KB.");
+    fieldOk.image = false;
+    updateBtn();
     return;
   }
 
@@ -460,7 +463,6 @@
   canvas.height = bitmap.height;
   ctx.drawImage(bitmap, 0, 0);
 
-  // Auto-resize loop if over 5MB
   let dataUrl = canvas.toDataURL('image/jpeg', quality);
   while (dataUrl.length > maxSize && quality > 0.1) {
     quality -= 0.1;
@@ -469,7 +471,7 @@
 
   selectedImageBase64 = dataUrl;
   
-  // New validation logic
+  // These two lines fix your validation issue:
   fieldOk.image = true; 
   updateBtn(); 
 
