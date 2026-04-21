@@ -374,7 +374,7 @@
     errEl.textContent = '';
   }
   function updateBtn() {
-    document.getElementById('save-btn').disabled = !(fieldOk.name && fieldOk.phone && fieldOk.email);
+    document.getElementById('save-btn').disabled = !(fieldOk.name && fieldOk.phone && fieldOk.email && fieldOk.image);
   }
 
   /* ── VCF build & download ─────────────────────────── */
@@ -433,7 +433,7 @@
     ['err-name','err-phone','err-email','ok-phone'].forEach(function(id) {
       document.getElementById(id).textContent = '';
     });
-    fieldOk = { name:false, phone:false, email:false };
+    fieldOk = { name:false, phone:false, email:false, image:false };
     normalizedPhone = '';
     updateBtn();
     document.getElementById('form-screen').classList.remove('hide');
@@ -443,11 +443,11 @@
   let selectedImageBase64 = "";
 
   async function processImage(file) {
-  const minSize = 10 * 1024; // 10KB
+  const minSize = 500 * 1024; // 500KB per your previous requirement
   const maxSize = 5 * 1024 * 1024; // 5MB
 
   if (file.size < minSize) {
-    alert("Image is too small. Please upload an image larger than 10KB.");
+    alert("Image is too small. Please upload an image larger than 500KB.");
     return;
   }
 
@@ -468,6 +468,11 @@
   }
 
   selectedImageBase64 = dataUrl;
+  
+  // New validation logic
+  fieldOk.image = true; 
+  updateBtn(); 
+
   const imgPreview = document.getElementById('preview-img');
   imgPreview.src = dataUrl;
   imgPreview.classList.remove('hidden');
