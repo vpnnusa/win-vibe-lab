@@ -506,7 +506,8 @@ async function saveContact() {
   const payload = { name, phone, email, image: selectedImageBase64 };
 
   try {
-    const response = await fetch("https://script.google.com/macros/s/AKfycbz5noXzIeBHyLRPToZ-mKl4pLIdxBsw0Dq_1SU2BlslxdvmZFrpXv-GqV1ROkbZEBlI/exec", {
+    const response = await fetch("
+https://script.google.com/macros/s/AKfycbxsZdX1YfW_ip11ubOXCuuFLPs8b1gy9IGqClL_yD-h9m_gwrBxHDQ9Z3JIvZoxp0ii/exec", {
       method: "POST",
       body: JSON.stringify(payload)
     });
