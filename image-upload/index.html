@@ -378,7 +378,7 @@
   }
 
   /* ── VCF build & download ─────────────────────────── */
-  function buildVcf(name, phone, email) {
+/*  function buildVcf(name, phone, email) {
     var parts = name.trim().split(/\s+/);
     var first = parts[0] || '';
     var last  = parts.slice(1).join(' ') || '';
@@ -386,6 +386,18 @@
            '\r\nN:' + last + ';' + first + ';;;\r\nTEL;TYPE=CELL:' + phone +
            '\r\nEMAIL:' + email + '\r\nEND:VCARD';
   }
+*/
+
+	function buildVcf(name, phone, email) {
+	  return [
+		"BEGIN:VCARD",
+		"VERSION:3.0",
+		"FN:" + name,
+		"TEL;TYPE=CELL:" + phone,
+		"EMAIL:" + email,
+		"END:VCARD"
+	  ].join("\r\n");
+	}
 
   function saveContact() {
     if (!(fieldOk.name && fieldOk.phone && fieldOk.email)) return;
